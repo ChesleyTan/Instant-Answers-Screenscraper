@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+<html>
+    <head>
+    </head>
+
+    <body>
+        {% block container %}
+        <div id="container">
+            <form method="GET">
+                <input type="text" name="search_terms"/>
+                <input type="submit" value="Search"/>
+            </form>
+        </div>
+        {% endblock %}
+    </body>
+        
+</html>

@@ -1,0 +1,25 @@
+body {
+    overflow: none;
+}
+#container {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+input[type="submit"] {
+    height: 20px;
+    font-family: Open Sans;
+    border-radius: 3px;
+    border: none;
+    transition: 0.3s background-color;
+    background-color: #87FF00;
+}
+input[type="submit"]:hover {
+    background-color: #00BBFF;
+}
+input[type="text"] {
+    width: 400px;
+}
