@@ -13,7 +13,7 @@ def getFilteredInputList(s):
     results = Counter()
     # regex matches names such as:
     # Les Demoiselles d'Avignon, Mademoiselle de l'Amour, Abd el-Fattah, Jean-Jacques Rousseau, and James Bond
-    regex_capitals_with_surname_epithet = "([A-Z][a-z]+((( |-)[A-Z][a-z]+)*)?((( ([a-z]{2,3}(?=\s|-))){1,2})?(( |-)([a-z]\')?[A-Z][a-z]+)+)?)"
+    regex_capitals_with_surname_epithet = "([A-Z][a-z]+[A-Z]?[a-z]+((( |-)[A-Z][a-z]+[A-Z]?[a-z]+){0,3})?((( ([a-z]{2,3}(?=\s|-))){1,2})?(( |-)([a-z]\')?[A-Z][a-z]+){1,3}}})?)"
     # expand alphabet with accent mark variations
     regex_capitals_with_surname_epithet = regex_capitals_with_surname_epithet\
         .replace('[A-Z]', UPPER_CASE_ALPHABET_RANGE)\
