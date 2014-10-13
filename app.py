@@ -30,11 +30,11 @@ def answer():
             try:
                 soup = BeautifulSoup(urlopen(url, timeout=1).read())
             except urllib2.URLError:
-                return "An error occurred"
+                continue
             except timeout:
-                pass
+                continue
             except SSLError:
-                pass
+                continue
             print "Got soup :)"
             pages.append(soup.get_text())
             for page in pages:
