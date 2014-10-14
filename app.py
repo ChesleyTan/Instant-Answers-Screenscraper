@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for
 import google
 import urllib2
 from urllib2 import urlopen
@@ -59,6 +59,18 @@ def answer():
         retStr = "<h1>The most common name was " + topNames.most_common(1)[0][0] + "</h1>" + retStr
 
         return retStr
+    if query_upper.find("WHERE") > -1:
+        if "AM" in query_upper or "am" in query_upper:
+        # Self referential case
+            JSurl = url_for('static', filename='mylocation.js')
+            retStr = '<script src="' + JSurl + '"></script>'
+            return retStr
+        else:
+            try:
+                urls = [x for x in google.search(query, lang='en', num=10, start=0, stop=9, pause=1.0)]
+            except urllib2.URLError:
+                pass
+            print "Viable URLs found"
     else:
         return "Query not supported"
     #return render_template("answer.html")
