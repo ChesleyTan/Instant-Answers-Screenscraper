@@ -26,7 +26,7 @@ def answer():
             pass
         print "Got urls :)"
         pages = []
-        retStr = ""
+        retStr = "<body bgcolor='C0C0C0'>"
         topNames = Counter() 
         for url in urls[:10]:
             try:
@@ -43,7 +43,7 @@ def answer():
         for pageIndex in range(len_pages):
             NUM_RESULTS = 5
             names = filterNames.getFilteredInputList(pages[pageIndex]).most_common(NUM_RESULTS)
-            retStr += "<table>"
+            retStr += "<table border='1'><tr><td>Name</td><td>Frequency</td></tr>"
             for index in range(len(names)):
                 name = names[index][0]
                 if not(name.upper() in query_upper):
@@ -56,8 +56,8 @@ def answer():
                                     print "Increasing confidence of " + item + " with " + name
                     topNames[name] += len_pages - pageIndex + NUM_RESULTS - index 
                     retStr += "<tr><td>" + name + "</td><td>" + str(names[index][1]) + "</td></tr>"
-            retStr += "</table><hr>"
-        retStr = "<h1>The most common name was " + topNames.most_common(1)[0][0] + "</h1>" + retStr
+            retStr += "</table>"
+        retStr = "<h1 style='color:blue'>The most common name was " + topNames.most_common(1)[0][0] + "</h1>" + retStr + "</body>"
 
         return retStr
 
@@ -68,7 +68,7 @@ def answer():
             pass
         print "Got urls :)"
         pages = []
-        retStr = ""
+        retStr = "<body bgcolor='C0C0C0'>"
         topdt = Counter()
         for url in urls:
             try:
@@ -93,11 +93,11 @@ def answer():
                                     topdt[item] += 1
                                     print "Increasing confidence of " + item + " with " + dt
                     topdt[dt] += 1
-            retStr += "<table>"
+            retStr += "<table border='1'><tr><td>Date/Time</td><td>Frequency</td></tr>"
             for _tuple in dts:
                 retStr += "<tr><td>" + _tuple[0] + "</td><td>" + str(_tuple[1]) + "</td></tr>"
-            retStr += "</table><hr>"
-        retStr = "<h1>The most common date or time  was " + topdt.most_common(1)[0][0] + "</h1>" + retStr
+            retStr += "</table>"
+        retStr = "<h1 style='color:blue'>The most common date or time  was " + topdt.most_common(1)[0][0] + "</h1>" + retStr + "</body>"
         return retStr
 
     elif query_upper.find("WHERE") > -1:
