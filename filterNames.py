@@ -3,7 +3,7 @@ import time
 import re
 from collections import Counter
 nameList = []
-namesListFile = "C:/Users/Admin/Documents/GitHub/Instant-Answers-Screenscraper/allNamesUppercase.txt"
+namesListFile = "allNamesUppercase.txt"
 
 LOWER_CASE_ALPHABET_RANGE = "[a-záààâçééèèêëíìîïñóòôúùùûü]"
 UPPER_CASE_ALPHABET_RANGE = "[A-ZÛÚÙÙÜÁÀÀÂÇÉÉÈÈÊËÍÌÎÏÑÓÒÔ]"
