@@ -59,7 +59,7 @@ def answer():
         retStr = "<h1>The most common name was " + topNames.most_common(1)[0][0] + "</h1>" + retStr
 
         return retStr
-    if query_upper.find("WHERE") > -1:
+    elif query_upper.find("WHERE") > -1:
         if "AM" in query_upper or "am" in query_upper:
         # Self referential case
             JSurl = url_for('static', filename='mylocation.js')
@@ -71,6 +71,88 @@ def answer():
             except urllib2.URLError:
                 pass
             print "Viable URLs found"
+            retStr = ""
+            pages = []
+            stored = []
+            try:
+                true_query = query_upper.split(' ')[2:]
+            except:
+                true_query = query_upper.split(' ')[-2:]
+            for url in urls[:10]:
+                try:
+                    soup = BeautifulSoup(urlopen(url, timeout=1).read())
+                except urllib2.URLError:
+                    continue
+                except timeout:
+                    continue
+                except SSLError:
+                    continue
+                print "Soup's up"
+            try:
+                pages.append(soup.get_text())
+            except:
+                return "Nothing found :("
+            for page in pages:
+                sentences = page.split('.')
+                potential_keywords = ['location', 'position', 'find', 'address', 'residence', 'coordinates', 'coordinate', 'neighborhood']
+                for sentence in sentences:
+                    for keyword in potential_keywords:
+                        if keyword in sentence or keyword.title() in sentence:
+                            # Since it was sorted by prioritized pages,
+                            # We'll use that as the rank (first found = better)
+                            try:
+                                print sentence, keyword, "SUCCESS"
+                            except:
+                                print "encoding error in printing to console"
+                            stored += [sentence]
+            try: 
+                retStr = "The most likely answer is: " + stored[0]
+            except:
+                retStr = "Nothing found :("
+            return retStr
+
+
+    elif query_upper.find("WHEN") > -1:
+        try:
+            urls = [x for x in google.search(query, lang='en', num=10, start=0, stop=9, pause=1.0)]
+        except urllib2.URLError:
+            pass
+        print "Viable URLs found"
+        retStr = ""
+        pages = []
+        stored = []
+        try:
+            true_query = query_upper.split(' ')[2:]
+        except:
+            true_query = query_upper.split(' ')[-2:]
+        for url in urls[:10]:
+            try:
+                soup = BeautifulSoup(urlopen(url, timeout=1).read())
+            except urllib2.URLError:
+                continue
+            except timeout:
+                continue
+            except SSLError:
+                continue
+            print "Soup's up"
+        try:
+            pages.append(soup.get_text())
+        except:
+            return "Nothing found :("
+        for page in pages:
+            sentences = page.split('.')
+            potential_keywords = ['time', 'date', 'schedule', 'when', 'year', 'month', 'day', 'year']
+            for sentence in sentences:
+                for keyword in potential_keywords:
+                    if keyword in sentence or keyword.title() in sentence:
+                        # Since it was sorted by prioritized pages and keywords,
+                        # We'll use that as the rank (first found = naturally better)
+                        stored += [sentence]
+        try:
+            retStr = "The most likely answer is: " +stored[0]
+        except:
+            retStr = "Nothing found :("
+        return retStr
     else:
         return "Query not supported"
     #return render_template("answer.html")
