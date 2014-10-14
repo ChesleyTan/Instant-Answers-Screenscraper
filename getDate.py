@@ -3,6 +3,7 @@ from collections import Counter
 import time
 
 def filterDateandTime (r):
+    #creates a counter that will be used to find the frequency of the results
     results = Counter()
 #source http://stackoverflow.com/questions/10086980/date-matching-using-python-regex
     regex_dates = "\d{1,2}[-/:]\d{1,2}[-/:]\d{2,4}"
@@ -19,6 +20,7 @@ def filterDateandTime (r):
     
 
 def findDate(r):
+    #only finds phrases like January 24, 1900
     listOfDates = re.findall("(?:(January|February|March|April|May|June|July|August|September|October|November|December) +(0?[1-9]|[12]\d|3[01])?, *([0-9]*)?)", r)
     listdates =[] 
 
@@ -28,6 +30,7 @@ def findDate(r):
     return listdates
 
 def findTime(r):
+    #finds phrases with 1 or 2 digits, then a : then 1 or 2 more digits
     listOfTimes = re.findall("\d{1,2}[:]\d{1,2}", r)
     return listOfTimes
 
